@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
@@ -30,6 +31,11 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
     [SerializeField] private Button outcome;
     [SerializeField] private Button play;
 
+    [Header("Image")]
+    [SerializeField] private Image thumb;
+    [SerializeField] private Sprite[] thumbImages;
+
+    private float thumbMaxWidth;
     private ModuleData currentData;
     private RectTransform rectTransform;
     private void Awake()
@@ -39,6 +45,12 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
         {
             canvas = GetComponentInParent<Canvas>();
         }
+        if(thumb == null)
+        {
+            thumb = GetComponentInChildren<Image>();
+        }
+        thumbMaxWidth = thumb.rectTransform.sizeDelta.x;
+        
     }
 
     // update UI
@@ -63,13 +75,26 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
         tag2.text = data.tags[1];
         tag3.text = data.tags[2];
 
-        if (!data.canPlay)
+        for(int i = 0;  i < thumbImages.Length; i++)
         {
-            play.gameObject.SetActive(false);
-        }
-        
-    }
+            if(thumbImages[i].name.StartsWith(data.thumbnailKey))
+            {
+                Sprite image = thumbImages[i];
+                thumb.sprite = image;
 
+                float ratio = image.rect.height / image.rect.width;
+                Debug.Log("thumb max: " + thumbMaxWidth);
+                float newWidth = thumbMaxWidth;
+                float newHeight = newWidth * ratio;
+
+                thumb.rectTransform.sizeDelta = new Vector2(newWidth, newHeight);
+
+                return;
+            }
+        }
+
+        play.gameObject.SetActive(data.canPlay);
+    }
     public void Hide()
     {
         root.SetActive(false);

@@ -60,12 +60,8 @@
             "outcomeType": "PopupGallery",
             "outcomeTitle": "M2 Outcome",
             "outcomeDescription": "Proto website redesign mockups and UI improvement results.",
-            "outcomeImageKeys": [
-                "m2_outcome_01",
-                "m2_outcome_02",
-                "m2_outcome_03"
-            ],
-            "showQr": false
+            "outcomeUrl": "https: //www.figma.com/design/i1PBsvbFr7HZbC4gYnhhSt/Proto-site?node-id=0-1&t=fJEXEtbni9SLLtx1-1",
+            "showQr": true
         },
         {
             "id": "M3",
