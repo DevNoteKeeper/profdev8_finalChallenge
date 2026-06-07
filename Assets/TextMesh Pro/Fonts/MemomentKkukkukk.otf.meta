@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2f16b64a00578e24f81f2d73671aa6e9
+guid: bc8145f1476abc2428a07a5535f6474f
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Pixel Game
+  - MemomentKkukkukk
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
