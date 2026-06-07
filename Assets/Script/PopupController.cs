@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PopupController : MonoBehaviour
+public class PopupController : MonoBehaviour, IDragHandler
 {
     public GameObject popup;
     [SerializeField] Canvas canvas;

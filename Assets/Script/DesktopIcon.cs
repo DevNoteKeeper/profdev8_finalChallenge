@@ -7,12 +7,12 @@ public class DesktopIcon : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
     [SerializeField] TMP_Text iconText;
     [SerializeField] Canvas canvas;
+    [SerializeField] DesktopManager manager;
     private RectTransform rectTransform;
     private Image image;
-
+    
     private static DesktopIcon currentSelectedIcon;
 
-    public string getIconText => iconText.text;
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -43,7 +43,8 @@ public class DesktopIcon : MonoBehaviour, IPointerClickHandler, IDragHandler
         {
             if(iconText != null)
             {
-                Debug.Log(iconText.text);
+                string title = iconText.text;
+                manager.OnIconClicked(title);
             }
             else
             {
