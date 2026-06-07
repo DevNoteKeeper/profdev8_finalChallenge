@@ -5,6 +5,7 @@ using UnityEngine;
 public class DesktopManager : MonoBehaviour
 {
     [SerializeField] private TextAsset moduleJson;
+    [SerializeField] private ModuleViewerUI viewerUI;
     private ModuleDatabase moduleDatabase;
 
     private void Awake()
@@ -34,13 +35,7 @@ public class DesktopManager : MonoBehaviour
         }
         ModuleData data = FindModuleById(moduleID);
 
-        Debug.Log("=== MODULE FOUND ===");
-        Debug.Log("ID: " + data.id);
-        Debug.Log("Title: " + data.title);
-        Debug.Log("Focus: " + data.focus);
-        Debug.Log("Outcome Type: " + data.outcomeType);
-        Debug.Log("Can Play: " + data.canPlay);
-        Debug.Log("Path: " + data.path);
+        viewerUI.Show(data);
     }
 
     // extract id ex) M1: Design & Scrum -> M1
