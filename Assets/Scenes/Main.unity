@@ -2266,6 +2266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c186a1cbad2e9b64589dad8ae9169bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashBin
+  canvas: {fileID: 1438795694}
 --- !u!222 &364396545
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2934,9 +2935,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 590345193}
-        m_TargetAssemblyTypeName: ModuleViewerUI, Assembly-CSharp
-        m_MethodName: Hide
+      - m_Target: {fileID: 452622002}
+        m_TargetAssemblyTypeName: PopupController, Assembly-CSharp
+        m_MethodName: CloseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
