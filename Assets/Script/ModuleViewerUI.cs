@@ -3,6 +3,7 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class ModuleViewerUI : MonoBehaviour, IDragHandler
@@ -36,6 +37,8 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
     [SerializeField] private Sprite[] thumbImages;
 
     private float thumbMaxWidth;
+    private float thumbMaxHeight;
+
     private ModuleData currentData;
     private RectTransform rectTransform;
     private void Awake()
@@ -49,8 +52,10 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
         {
             thumb = GetComponentInChildren<Image>();
         }
-        thumbMaxWidth = thumb.rectTransform.sizeDelta.x;
-        
+
+        thumbMaxWidth = thumb.rectTransform.sizeDelta.x -20;
+        thumbMaxHeight = thumb.rectTransform.sizeDelta.y-20;
+
     }
 
     // update UI
@@ -82,10 +87,15 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
                 Sprite image = thumbImages[i];
                 thumb.sprite = image;
 
-                float ratio = image.rect.height / image.rect.width;
-                Debug.Log("thumb max: " + thumbMaxWidth);
-                float newWidth = thumbMaxWidth;
-                float newHeight = newWidth * ratio;
+                float imageWidth = image.rect.width;
+                float imageHeight = image.rect.height;
+
+                float scaleX = thumbMaxWidth / imageWidth;
+                float scaleY = thumbMaxHeight / imageHeight;
+                float scale = Mathf.Min(scaleX, scaleY);
+
+                float newWidth = imageWidth * scale;
+                float newHeight = imageHeight * scale;
 
                 thumb.rectTransform.sizeDelta = new Vector2(newWidth, newHeight);
 
