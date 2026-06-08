@@ -31,6 +31,7 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
     [Header("Button")]
     [SerializeField] private Button outcome;
     [SerializeField] private Button play;
+    [SerializeField] private OutcomeUI outcomeUI;
 
     [Header("Image")]
     [SerializeField] private Image thumb;
@@ -64,25 +65,27 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
         currentData = data;
         root.SetActive(true);
 
-        smallTitle.text = data.iconId + " " + data.iconTitle;
-        mainTitle.text = data.title;
+        smallTitle.text = currentData.iconId + " " + currentData.iconTitle;
+        mainTitle.text = currentData.title;
 
-        filePath.text = data.path;
-        completed.text = data.completed;
+        filePath.text = currentData.path;
+        completed.text = currentData.completed;
 
-        module.text = "module "+data.moduleNumber;
-        challenge.text = data.focus;
-        whatIDid.text = data.whatIDid;
-        keyResult.text = data.keyResult;
-        learned.text = data.whatILearned;
+        module.text = "module " + currentData.moduleNumber;
+        challenge.text = currentData.focus;
+        whatIDid.text = currentData.whatIDid;
+        keyResult.text = currentData.keyResult;
+        learned.text = currentData.whatILearned;
 
-        tag1.text = data.tags[0];
-        tag2.text = data.tags[1];
-        tag3.text = data.tags[2];
+        tag1.text = currentData.tags[0];
+        tag2.text = currentData.tags[1];
+        tag3.text = currentData.tags[2];
 
-        for(int i = 0;  i < thumbImages.Length; i++)
+        play.gameObject.SetActive(currentData.canPlay);
+
+        for (int i = 0; i < thumbImages.Length; i++)
         {
-            if(thumbImages[i].name.StartsWith(data.thumbnailKey))
+            if (thumbImages[i].name.StartsWith(currentData.thumbnailKey))
             {
                 Sprite image = thumbImages[i];
                 thumb.sprite = image;
@@ -98,12 +101,18 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
                 float newHeight = imageHeight * scale;
 
                 thumb.rectTransform.sizeDelta = new Vector2(newWidth, newHeight);
-
-                return;
+                break;
             }
         }
 
-        play.gameObject.SetActive(data.canPlay);
+        if (currentData.id == "M6")
+        {
+            outcome.gameObject.SetActive(false);
+        }
+        else
+        {
+            outcome.gameObject.SetActive(true);
+        }
     }
     public void Hide()
     {
@@ -112,13 +121,39 @@ public class ModuleViewerUI : MonoBehaviour, IDragHandler
 
     public void OnClickOutcome()
     {
-        Debug.Log("outcome button clicked");
+        Debug.Log("Outcome button clicked");
+
+        if (currentData == null)
+        {
+            Debug.LogError("currentData is NULL");
+            return;
+        }
+
+        Debug.Log("currentData title: " + currentData.title);
+        Debug.Log("currentData type: " + currentData.outcomeType);
+
+        if (outcomeUI == null)
+        {
+            Debug.LogError("outcomeUI is NULL");
+            return;
+        }
+
+        switch (currentData.outcomeType)
+        {
+            case OutcomeType.Url:
+                outcomeUI.ShowQROutcome(currentData.outcomeTitle,  currentData.id);
+                break;
+
+            case OutcomeType.ImageGallery:
+                outcomeUI.ShowImageOutcome(currentData.outcomeTitle, currentData.id);
+                break;
+        }
     }
 
-    public void OnClickPlay()
-    {
-        Debug.Log("play button clicked");
-    }
+    //public void OnClickPlay()
+    //{
+    //    Debug.Log("play button clicked");
+    //}
 
     public void OnDrag(PointerEventData eventData)
     {

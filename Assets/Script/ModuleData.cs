@@ -17,16 +17,28 @@ public class ModuleData
     public string reflection;
     public string[] tags;
     public string completed;
+
     public string playHook;
     public string thumbnailKey;
+
     public string outcomeLabel;
+    public string outcomeTitle;
+    public OutcomeType outcomeType;
+    public string url;
+    public Sprite[] images;
+
     public string playLabel;
     public bool canPlay;
     public string playType;
-    public string outcomeType;
 }
 [Serializable]
 public class ModuleDatabase
 {
     public ModuleData[] modules;
+}
+public enum OutcomeType
+{
+    None,
+    Url,
+    ImageGallery
 }
